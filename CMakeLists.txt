@@ -22,6 +22,13 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread -O0 -g3 -Wall -Werror -Wstrict-prot
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__STDC_LIMIT_MACROS -D__STDC_FORMAT_MACROS -std=c++0x -pthread -O0 -g3 -Wall -Werror")
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -g3")
 
+option(force32bit, "Force a 32-bit build on a 64-bit system")
+if (force32bit)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+  set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -m32")
+endif()
+
 set_source_files_properties(src/preload/preload.c PROPERTIES COMPILE_FLAGS -O2)
 
 # 32-bit rr requires its librrpreload to be compiled as position dependent code.
