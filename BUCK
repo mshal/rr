@@ -141,3 +141,13 @@ cxx_binary(
         ':system_libs',
     ],
 )
+
+# This doesn't work yet.
+for target, dest in [('rr', 'bin/rr'), ('rrpreload#default,shared', 'lib/librrpreload.so')]:
+    realtarget = ':' + target
+    genrule(
+        name = 'copy_%s' % target.replace('#', '_'),
+        cmd = 'cp $(location %s) $OUT' % realtarget,
+        out = dest,
+        deps = [realtarget]
+    )
