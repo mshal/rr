@@ -72,7 +72,7 @@ template <typename Arch> struct syscall_defs {
   static Table table;
 };
 
-#include "SyscallDefsTable.generated"
+#include "SyscallDefsTable.h"
 
 // XXX: x86-only currently.
 #ifdef CHECK_SYSCALL_NUMBERS
@@ -80,7 +80,7 @@ template <typename Arch> struct syscall_defs {
 // Hack because our 'break' syscall is called '_break'
 #define SYS__break SYS_break
 
-#include "CheckSyscallNumbers.generated"
+#include "CheckSyscallNumbers.h"
 
 #endif // CHECK_SYSCALL_NUMBERS
 
