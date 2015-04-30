@@ -11,6 +11,20 @@ cc_library(
     hdrs = ["src/preload/preload_interface.h"],
 )
 
+GENERATED_FILES = [
+    "AssemblyTemplates.h",
+    "CheckSyscallNumbers.h",
+    "IsAlwaysEmulatedSyscall.h",
+    "SyscallDefsTable.h",
+    "SyscallEnumsX64.h",
+    "SyscallEnumsX86.h",
+    "SyscallEnumsForTestsX64.h",
+    "SyscallEnumsForTestsX86.h",
+    "SyscallHelperFunctions.h",
+    "SyscallnameArch.h",
+    "SyscallRecordCase.h",
+]
+
 cc_binary(
     name="rr",
     linkopts = [
@@ -70,18 +84,7 @@ cc_binary(
         "src/TraceStream.cc",
         "src/util.cc",
         "include/rr/rr.h",
-        "AssemblyTemplates.h",
-        "CheckSyscallNumbers.h",
-        "IsAlwaysEmulatedSyscall.h",
-        "SyscallDefsTable.h",
-        "SyscallEnumsX64.h",
-        "SyscallEnumsX86.h",
-        "SyscallEnumsForTestsX64.h",
-        "SyscallEnumsForTestsX86.h",
-        "SyscallHelperFunctions.h",
-        "SyscallnameArch.h",
-        "SyscallRecordCase.h",
-    ],
+    ] + GENERATED_FILES,
 )
 
 load("gen_syscalls", "gen_syscalls")
@@ -89,19 +92,7 @@ load("gen_syscalls", "gen_syscalls")
 gen_syscalls(
     name="gen_syscalls",
     script="src/generate_syscalls.py",
-    generated=[
-        "AssemblyTemplates.h",
-        "CheckSyscallNumbers.h",
-        "IsAlwaysEmulatedSyscall.h",
-        "SyscallDefsTable.h",
-        "SyscallEnumsX64.h",
-        "SyscallEnumsX86.h",
-        "SyscallEnumsForTestsX64.h",
-        "SyscallEnumsForTestsX86.h",
-        "SyscallHelperFunctions.h",
-        "SyscallnameArch.h",
-        "SyscallRecordCase.h",
-    ]
+    generated=GENERATED_FILES
 )
 
 filegroup(
