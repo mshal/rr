@@ -134,7 +134,7 @@ cxx_binary(
         "src/TraceStream.cc",
         "src/util.cc",
     ],
-    headers = [':gen_%s' % g for g in GENERATED_FILES],
+    headers = [':gen_%s' % g for g in GENERATED_FILES] + glob(["src/*.h"]),
     deps = [
         ':headers',
         ':system_libs',
