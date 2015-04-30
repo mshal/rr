@@ -11,6 +11,7 @@ cxx_library(
     headers = glob(["src/preload/*.h"]),
     deps = [
       ":headers",
+      ":system_libs",
     ],
 )
 
