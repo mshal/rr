@@ -2,6 +2,12 @@ package(default_visibility = ["//visibility:public"])
 
 cc_library(
     name = "rrpreload",
+    linkopts = [
+        "-ldl",
+        "-lm",
+        "-lpthread",
+        "-lrt",
+    ],
     srcs = [
         "src/preload/preload.c",
         "src/preload/traced_syscall.S",
