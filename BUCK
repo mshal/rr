@@ -1,4 +1,5 @@
-#TODO: this doesn't actually build a shared library
+# To build the shared library, run `buck build //:rrpreload#default,shared`
+# This is lame, sdwilsh should fix it.
 cxx_library(
     name = "rrpreload",
     srcs = [
@@ -7,7 +8,10 @@ cxx_library(
         "src/preload/untraced_syscall.S",
         "src/preload/syscall_hook.S",
     ],
-    exported_headers = ["src/preload/preload_interface.h"],
+    headers = glob(["src/preload/*.h"]),
+    deps = [
+      ":headers",
+    ],
 )
 
 GENERATED_FILES = [
@@ -48,21 +52,28 @@ for generated in GENERATED_FILES:
         ]
 )
 
-prebuilt_cxx_library(
-    name='rr.h',
-    header_only = True,
-    exported_headers = {'rr/rr.h': 'include/rr/rr.h'},
+cxx_library(
+    name='headers',
+    exported_headers = {
+      'rr/rr.h': 'include/rr/rr.h',
+      'preload/preload_interface.h': 'src/preload/preload_interface.h',
+    },
 )
 
-cxx_binary(
-    name="rr",
-    linker_flags = [
+prebuilt_cxx_library(
+    name='system_libs',
+    header_only = True,
+    exported_linker_flags = [
         "-ldl",
         "-lm",
         "-lpthread",
         "-lrt",
         "-lz",
-    ],
+    ]
+)
+
+cxx_binary(
+    name="rr",
     compiler_flags = [
         "-std=c++0x",
         "-pthread",
@@ -76,7 +87,7 @@ cxx_binary(
         "-D__USE_LARGEFILE64",
         "-D__STDC_LIMIT_MACROS",
         "-D__STDC_FORMAT_MACROS",
-        "-DRR_VERSION='\"3.2.0\"'",
+        "-DRR_VERSION=\"3.2.0\"",
         "-I include",
     ],
     srcs = [
@@ -124,5 +135,8 @@ cxx_binary(
         "src/util.cc",
     ],
     headers = [':gen_%s' % g for g in GENERATED_FILES],
-    deps = [':rr.h'],
+    deps = [
+        ':headers',
+        ':system_libs',
+    ],
 )
