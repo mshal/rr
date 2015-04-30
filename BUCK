@@ -48,6 +48,12 @@ for generated in GENERATED_FILES:
         ]
 )
 
+prebuilt_cxx_library(
+    name='rr.h',
+    header_only = True,
+    exported_headers = {'rr/rr.h': 'include/rr/rr.h'},
+)
+
 cxx_binary(
     name="rr",
     linker_flags = [
@@ -58,6 +64,7 @@ cxx_binary(
         "-lz",
     ],
     compiler_flags = [
+        "-std=c++0x",
         "-pthread",
         "-O0",
         "-g3",
@@ -116,5 +123,6 @@ cxx_binary(
         "src/TraceStream.cc",
         "src/util.cc",
     ],
-    headers = ["include/rr/rr.h"] + [':gen_%s' % g for g in GENERATED_FILES],
+    headers = [':gen_%s' % g for g in GENERATED_FILES],
+    deps = [':rr.h'],
 )
