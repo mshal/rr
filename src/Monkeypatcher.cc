@@ -12,7 +12,7 @@
 using namespace rr;
 using namespace std;
 
-#include "AssemblyTemplates.generated"
+#include "AssemblyTemplates.h"
 
 /**
  * RecordSession sets up an LD_PRELOAD environment variable with an entry

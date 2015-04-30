@@ -1598,7 +1598,7 @@ static Switchable rec_prepare_syscall_arch(Task* t,
 
   switch (syscallno) {
 // All the regular syscalls are handled here.
-#include "SyscallRecordCase.generated"
+#include "SyscallRecordCase.h"
 
     case Arch::splice: {
       syscall_state.reg_parameter<loff_t>(2, IN_OUT);

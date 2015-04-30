@@ -1168,7 +1168,7 @@ struct X86Arch : public BaseArch<SupportedArch::x86, WordSize32Defs> {
   typedef uint16_t legacy_uid_t;
   typedef uint16_t legacy_gid_t;
 
-#include "SyscallEnumsX86.generated"
+#include "SyscallEnumsX86.h"
 
   struct user_regs_struct {
     int32_t ebx;
@@ -1299,7 +1299,7 @@ struct X64Arch : public BaseArch<SupportedArch::x86_64, WordSize64Defs> {
   typedef uint32_t legacy_uid_t;
   typedef uint32_t legacy_gid_t;
 
-#include "SyscallEnumsX64.generated"
+#include "SyscallEnumsX64.h"
 
   // The kernel defines the segment registers and eflags as 64-bit quantities,
   // even though the segment registers are really 16-bit and eflags is
@@ -1438,7 +1438,7 @@ struct X64Arch : public BaseArch<SupportedArch::x86_64, WordSize64Defs> {
       return f<rr::X64Arch>(args);                                             \
   }
 
-#include "SyscallHelperFunctions.generated"
+#include "SyscallHelperFunctions.h"
 
 /**
  * Return true if |ptr| in task |t| points to an invoke-syscall instruction.

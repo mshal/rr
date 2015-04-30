@@ -15,7 +15,7 @@
 using namespace rr;
 using namespace std;
 
-#include "SyscallnameArch.generated"
+#include "SyscallnameArch.h"
 
 string syscall_name(int syscall, SupportedArch arch) {
   RR_ARCH_FUNCTION(syscallname_arch, arch, syscall)
@@ -127,7 +127,7 @@ const char* signal_name(int sig) {
   }
 }
 
-#include "IsAlwaysEmulatedSyscall.generated"
+#include "IsAlwaysEmulatedSyscall.h"
 
 bool is_always_emulated_syscall(int syscall, SupportedArch arch) {
   RR_ARCH_FUNCTION(is_always_emulated_syscall_arch, arch, syscall);

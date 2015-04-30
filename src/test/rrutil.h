@@ -71,9 +71,9 @@
 #include <x86intrin.h>
 
 #if defined(__i386__)
-#include "SyscallEnumsForTestsX86.generated"
+#include "SyscallEnumsForTestsX86.h"
 #elif defined(__x86_64__)
-#include "SyscallEnumsForTestsX64.generated"
+#include "SyscallEnumsForTestsX64.h"
 #else
 #error Unknown architecture
 #endif
